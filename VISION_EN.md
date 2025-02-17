@@ -62,8 +62,8 @@ graph TB
     class DB,R database
 ```
 
+![](ordering.png)
 
-![[ordering.png]]
 
 ### Ordering Process
 
