@@ -1,76 +1,27 @@
 
 
 
-# Prompts
 
-I'm designing an ordering system for the University UIASS that manages multiple points of sales, including: Locations: Café, Grocery Store, Barber, Laundry Room, Restaurant (Class), Fast Food Restaurant, and University Restaurant. Actors: Customer, Admin, Cashier. Views: Admin view, Cashier view, Customer Kiosk view, Customer Smartphone view. Entities:User Roles Enum Orders OrderItems Products Categories ClientAccounts (for UIASS card) Ticket: A unique identifier for each order to track its processing and fulfillment. Payment: Includes payment method, transaction ID, amount, and status. Receipt: Stores transaction details for customer records OrderStatus: Represents different stages of the order (e.g., pending, completed, delivered). Inventory Cart Discount Notification Payment Methods: Cash, Visa, Prepaid Card (UIASS card). I need assistance to create: Class Diagrams – Illustrate the main classes (entities) and their relationships. Sequence Diagrams – Detail the interactions among the actors and system components for typical scenarios (e.g., placing an order, processing a payment). Overall System Design – Outline the architecture and flow of the ordering system, ensuring that all views and actors are integrated. Please generate diagrams and design suggestions that cover these requirements and ensure the system supports both online (customer smartphone and kiosk) and in-person (cashier and admin) interactions. Include notes on key design decisions and how the different components interact with each other. This prompt should provide a comprehensive context for Phind to generate the diagrams and system design you need.
+# Vision Document
 
+## Overview
 
-# Random
+This document presents a comprehensive vision for a digital ordering and payment system designed to facilitate transactions in various points of sale. The system integrates multiple front-end applications with a robust backend architecture to ensure seamless operations.
 
-admin view   : dashboard
+## Technologies
 
-cashier view :   
+The system leverages modern technologies for high performance and scalability:
 
+- **Frontend:** Android application for customers, web application for cashiers and admins, and a kiosk-based interface for self-service.
+- **Backend:** Symfony-based backend for API management, interfacing with a SQL Server database and Redis for caching.
+- **Data Layer:** SQL Server for persistent storage and Redis for fast data retrieval.
 
+## System Design
 
-customer view : choice here/out  || 
+### System Architecture
 
+The system architecture follows a multi-tier structure where frontend applications communicate with the backend, which manages data processing and storage.
 
-technologies
-
-classes diagram
-actions diagram
-
-
-system design
-
-
-
-figma
-
-
-entities:
-user
-clientAccount
-roles
-methodpayments
-pointOfSales
-menu
-inventory
-notification
-product
-ticket
-order
-orderItem
-orderStatus
-categorie
-receipt
-cart 
-discount
-
-
-<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
-</svg>
-
-
-
-
-
-
-<img src="C:\Users\Legion\Downloads\svgviewer-output.svg" alt="description" width="800" height="800">
-![[svgviewer-output (1).svg]]
-
-
-# Technologies
-
-
-
-# System Design
-
-
-## System Architecture Diagram
 ```mermaid
 graph TB
 
@@ -112,15 +63,19 @@ graph TB
 ```
 
 
+![[ordering.png]]
 
+### Ordering Process
+
+The ordering process involves customers placing orders through mobile apps, kiosks, or a cashier-assisted interface. Orders are processed by the backend and stored in the database. The flow ensures data consistency and optimized performance.
 
 ![[ordering.png]]
 
+## Conception
 
-# Conception
+### Class Diagram
 
-## Classes Diagram
-
+The following diagram represents the core entities of the system, including users, orders, payments, and inventory management. It ensures clear relationships and responsibilities between various system components.
 
 ```mermaid
 
@@ -317,8 +272,13 @@ classDiagram
    
 ```
 
-##  Use Cases
-### Admin:
+### Use Cases
+
+The system caters to different user roles, each having specific responsibilities and access levels. The main user roles include Admins, Customers, Cashiers, and Card Cashiers.
+
+#### Admin Use Cases
+
+Admins have full control over the system, including managing users, products, inventory, and system settings.
 
 ```mermaid
 flowchart LR
@@ -360,9 +320,9 @@ flowchart LR
 
   ```
 
+#### Customer Use Cases
 
-### Customer:
-
+Customers interact with the system primarily to view menus, place orders, track orders, and make payments.
 
 ```mermaid
 flowchart LR
@@ -400,14 +360,9 @@ flowchart LR
 
 ```
 
+#### Cashier Use Cases
 
-
-
-
-
-
-### Cashier:
-
+Cashiers process orders, accept payments, and manage transactions within the system.
 
 ```mermaid
 flowchart LR
@@ -446,7 +401,9 @@ flowchart LR
 
   ```
 
-### Card Cashier
+#### Card Cashier Use Cases
+
+Card cashiers handle UIASS card-related operations such as issuing, recharging, and blocking/unblocking cards.
 
 ```mermaid
 flowchart LR
@@ -478,9 +435,14 @@ flowchart LR
 
 ```
 
-## Sequence diagram
+## Sequence Diagrams
 
-### UIASS Card Order Process Sequence
+Sequence diagrams illustrate the dynamic interactions between users and the system.
+
+### UIASS Card Order Process
+
+This sequence diagram details the steps involved when a customer places an order using a UIASS card.
+
 ```mermaid
 sequenceDiagram
     participant C as Customer
@@ -526,9 +488,9 @@ sequenceDiagram
 
 ```
 
+### Mobile Order Placement
 
-
-### Mobile Order Placement Sequence
+This diagram describes the sequence of actions when a customer places an order through the mobile application.
 
 ```mermaid
 sequenceDiagram
@@ -573,8 +535,9 @@ sequenceDiagram
 ```
 
 
+### Cashier Order Processing
 
-### Cashier Order Processing Sequence
+The cashier processes orders manually, ensuring order accuracy and efficient payment handling.
 
 ```mermaid
 sequenceDiagram
@@ -618,8 +581,9 @@ sequenceDiagram
     K->>C: Provide Receipt
 ```
 
+## Payment Workflow
 
-# Payment
+The payment process involves multiple methods, including cash, VISA, and UIASS cards. The flowchart below outlines the decision-making process for each payment method.
 
 ```mermaid
 flowchart TD
@@ -642,3 +606,7 @@ flowchart TD
     style Fail fill:#FFB6C1,color:#000000
     style Retry fill:#FFE4B5,color:#000000
 ```
+
+## Conclusion
+
+This vision document outlines the structure, components, and functionality of the proposed system. With a scalable architecture, clear user roles, and a streamlined transaction process, the system aims to provide an efficient and user-friendly ordering and payment experience.
