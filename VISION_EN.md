@@ -65,12 +65,6 @@ graph TB
 ![](ordering.png)
 
 
-### Ordering Process
-
-The ordering process involves customers placing orders through mobile apps, kiosks, or a cashier-assisted interface. Orders are processed by the backend and stored in the database. The flow ensures data consistency and optimized performance.
-
-![[ordering.png]]
-
 ## Conception
 
 ### Class Diagram
