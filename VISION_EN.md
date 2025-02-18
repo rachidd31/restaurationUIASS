@@ -76,7 +76,6 @@ The following diagram represents the core entities of the system, including user
 
 classDiagram
 %%{init :{'theme':'dark'}}%%
-     
     class User {
         +int id
         +string username
@@ -84,10 +83,11 @@ classDiagram
         +string email
         +Role role
         +boolean isActive
+        +Cart Cart
+        +Order[] orders
         +DateTime createdAt
         +DateTime updatedAt
     }
-
     class Role {
         <<enumeration>>
         ADMIN
@@ -95,7 +95,6 @@ classDiagram
         CARD_CASHIER
         CUSTOMER
     }
-
     class ClientAccount {
         +int id
         +User user
@@ -103,17 +102,33 @@ classDiagram
         +decimal balance
         +boolean isActive
         +DateTime lastReload
+        +DateTime createdAt
+        +DateTime updatedAt
         +rechargeBalance()
         +deductAmount()
     }
-
-    class MethodPayment {
-        <<enumeration>>
-        CASH
-        VISA
-        UIASS_CARD
+    class ClientAccountOperation {
+        +int id
+        +ClientAccount account
+        +User operator
+        +OperationType type
+        +decimal amount
+        +decimal previousBalance
+        +decimal newBalance
+        +string description
+        +Payment payment
+        +DateTime createdAt
+        +string reference
     }
-
+    class OperationType {
+        <<enumeration>>
+        RELOAD
+        PAYMENT
+        REFUND
+        ACTIVATION
+        DEACTIVATION
+        BALANCE_ADJUSTMENT
+    }
     class PointOfSale {
         +int id
         +string name
@@ -124,7 +139,6 @@ classDiagram
         +getActiveProducts()
         +getCurrentOrders()
     }
-
     class Menu {
         +int id
         +PointOfSale pointOfSale
@@ -134,16 +148,6 @@ classDiagram
         +DateTime endDate
         +updateMenu()
     }
-
-    class Inventory {
-        +int id
-        +Product product
-        +PointOfSale pointOfSale
-        +int quantity
-        +updateStock()
-        +checkAvailability()
-    }
-
     class Product {
         +int id
         +string name
@@ -152,32 +156,36 @@ classDiagram
         +Category category
         +boolean isActive
         +string imageUrl
+        +DateTime createdAt
+        +DateTime updatedAt
         +checkAvailability()
     }
-
     class Category {
         +int id
         +string name
         +string description
         +boolean isActive
+        +DateTime createdAt
+        +DateTime updatedAt
         +getActiveProducts()
     }
-
     class Order {
         +int id
-        +Ticket ticket
         +User customer
         +User cashier
         +PointOfSale pointOfSale
         +OrderStatus status
         +OrderItem[] items
-        +MethodPayment paymentMethod
+        +Payment payment
         +DateTime createdAt
+        +DateTime updatedAt
+        +decimal subtotal
+        +decimal tax
         +decimal totalAmount
+        +string notes
         +calculateTotal()
         +updateStatus()
     }
-
     class OrderItem {
         +int id
         +Order order
@@ -186,9 +194,9 @@ classDiagram
         +decimal unitPrice
         +decimal subtotal
         +Discount discount
+        +DateTime createdAt
         +calculateSubtotal()
     }
-
     class OrderStatus {
         <<enumeration>>
         PENDING
@@ -197,43 +205,15 @@ classDiagram
         COMPLETED
         CANCELLED
     }
-
-    class Ticket {
-        +int id
-        +string ticketNumber
-        +Order order
-        +DateTime createdAt
-        +generateTicketNumber()
-    }
-
-    class Receipt {
-        +int id
-        +Order order
-        +string receiptNumber
-        +DateTime issuedAt
-        - +decimal totalAmount
-        +decimal taxAmount
-        +generateReceipt()
-    }
-
     class Cart {
         +int id
         +User user
-        +PointOfSale pointOfSale
-        +OrderItem[] items
+        +Order order
+        +DateTime createdAt
+        +DateTime updatedAt
         +addItem()
         +removeItem()
         +checkout()
-    }
-
-    class Discount {
-        +int id
-        +string code
-        +decimal percentage
-        +boolean isActive
-        +DateTime validFrom
-        +DateTime validTo
-        +validateDiscount()
     }
 
     class Notification {
@@ -243,26 +223,68 @@ classDiagram
         +string type
         +boolean isRead
         +DateTime createdAt
+        +DateTime readAt
         +send()
         +markAsRead()
     }
-    
-
+    class Payment {
+        <<abstract>>
+        +int id
+        +Order order
+        +PaymentStatus status
+        +decimal amount
+        +string transactionId
+        +DateTime createdAt
+        +DateTime processedAt
+        +string notes
+        +processPayment()
+    }
+    class PaymentStatus {
+        <<enumeration>>
+        PENDING
+        PROCESSING
+        COMPLETED
+        FAILED
+        REFUNDED
+    }
+    class Cash {
+        +decimal cashReceived
+        +decimal changeGiven
+        +processPayment()
+    }
+    class UIASS_CARD {
+        +string cardNumber
+        +string cardHolderName
+        +ClientAccount account
+        +processPayment()
+    }
+    class VISA {
+        +string cardNumber
+        +string cardHolderName
+        +string expirationDate
+        +string cvv
+        +processPayment()
+    }
     User "1" -- "*" Order
     User "1" -- "1" ClientAccount
     User "1" -- "1" Cart
+    User "*" -- "1" Order
+    Cart "1" -- "1" Order
     User "1" -- "*" Notification
-    Order "1" -- "1" Ticket
-    Order "1" -- "1" Receipt
     Order "1" -- "*" OrderItem
+    Order "1" -- "1" Payment
     OrderItem "*" -- "1" Product
-    OrderItem "*" -- "0..1" Discount
     Product "*" -- "1" Category
-    Product "1" -- "*" Inventory
-    PointOfSale "1" -- "1" Menu
-    PointOfSale "1" -- "*" Inventory
+    Menu "1" -- "1" PointOfSale
+     Menu "1" -- "*" Product
     PointOfSale "1" -- "*" Order
-    Cart "*" -- "1" PointOfSale
+    Payment <|-- Cash
+    Payment <|-- UIASS_CARD
+    Payment <|-- VISA
+    UIASS_CARD "1" -- "1" ClientAccount
+    ClientAccount "1" -- "*" ClientAccountOperation
+    ClientAccountOperation "*" -- "1" User
+    ClientAccountOperation "0..1" -- "1" Payment
    
 ```
 
