@@ -371,6 +371,11 @@ classDiagram
     ClientAccount "1" -- "*" ClientAccountOperation
     ClientAccountOperation "*" -- "1" User
     ClientAccountOperation "0..1" -- "1" Payment
+
+
+     style User fill:#3489eb,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+     style Product fill:#34eb9f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+     style Order fill:#abc42d,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
    
 ```
 
