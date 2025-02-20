@@ -194,6 +194,17 @@ classDiagram
         +DateTime updatedAt
         +checkAvailability()
     }
+
+  class Service {
+        -serviceId: String
+        -name: String
+        -description: String
+        -basePrice: Decimal
+        -duration: Integer
+        -availability: Schedule
+        +checkAvailability(DateTime)
+        +book(DateTime)
+    }
     class Category {
         +int id
         +string name
@@ -312,10 +323,13 @@ classDiagram
     User "1" -- "*" Notification
     Order "1" -- "*" OrderItem
     Order "1" -- "1" Payment
+    OrderItem "*" -- "1" Service
     OrderItem "*" -- "1" Product
     Product "*" -- "1" Category
+    Service "*" -- "1" Category
     Menu "1" -- "1" PointOfSale
-     Menu "1" -- "*" Product
+    Menu "1" -- "*" Product
+    Menu "1" -- "*" Service
     PointOfSale "1" -- "*" Order
     Payment <|-- Cash
     Payment <|-- UIASS_CARD
@@ -329,6 +343,7 @@ classDiagram
 
      style User fill:#3489eb,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
      style Product fill:#34eb9f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+     style Service fill:#34eb9f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
      style Order fill:#abc42d,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
      style Payment fill:#b8323f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
    
