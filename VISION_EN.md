@@ -136,9 +136,8 @@ classDiagram
         +string cardNumber
         +decimal balance
         +boolean isActive
-        +DateTime lastReload
         +DateTime createdAt
-        +DateTime updatedAt
+        +ClientAccountOperation[] lstOps
         +rechargeBalance()
         +deductAmount()
     }
