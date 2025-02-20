@@ -1,4 +1,286 @@
+```mermaid
+classDiagram
+%%{init :{'layout': 'elk'}}%%
+
+%% User Management
+class User {
+    +int id
+    +string username
+    +string password
+    +string email
+    +Role role
+    +boolean isActive
+    +Cart Cart
+    +Order[] orders
+    +DateTime createdAt
+    +DateTime updatedAt
+}
+class Role {
+    <<enumeration>>
+    ADMIN
+    CASHIER
+    CARD_CASHIER
+    CUSTOMER
+}
+
+class ClientAccount {
+    +int id
+    +User user
+    +string cardNumber
+    +decimal balance
+    +boolean isActive
+    +DateTime createdAt
+    +ClientAccountOperation[] lstOps
+    +rechargeBalance()
+    +deductAmount()
+}
+class ClientAccountOperation {
+    +int id
+    +ClientAccount account
+    +User operator
+    +OperationType type
+    +decimal amount
+    +decimal previousBalance
+    +decimal newBalance
+    +string description
+    +Payment payment
+    +DateTime createdAt
+    +string reference
+}
+class OperationType {
+    <<enumeration>>
+    RELOAD
+    PAYMENT
+    REFUND
+    ACTIVATION
+    DEACTIVATION
+    BALANCE_ADJUSTMENT
+}
+
+%% Product and Menu Management
+class PointOfSale {
+    +int id
+    +string name
+    +string location
+    +boolean isActive
+    +Menu currentMenu
+    +OpeningHours hours
+    +getActiveProducts()
+    +getCurrentOrders()
+}
+class Menu {
+    +int id
+    +PointOfSale pointOfSale
+    +Product[] products
+    +boolean isActive
+    +DateTime startDate
+    +DateTime endDate
+    +updateMenu()
+}
+class Product {
+    +int id
+    +string name
+    +string description
+    +decimal price
+    +Category category
+    +boolean isActive
+    +string imageUrl
+    +DateTime createdAt
+    +DateTime updatedAt
+    +checkAvailability()
+}
+class Category {
+    +int id
+    +string name
+    +string description
+    +boolean isActive
+    +DateTime createdAt
+    +DateTime updatedAt
+    +getActiveProducts()
+}
+
+  class Service {
+        -serviceId: String
+        -name: String
+        -description: String
+        -basePrice: Decimal
+        -duration: Integer
+        -availability: Schedule
+        +checkAvailability(DateTime)
+        +book(DateTime)
+    }
+
+
+
+%% Order Management
+class Order {
+    +int id
+    +User customer
+    +User cashier
+    +PointOfSale pointOfSale
+    +OrderStatus status
+    +OrderItem[] items
+    +Payment payment
+    +DateTime createdAt
+    +DateTime updatedAt
+    +decimal subtotal
+    +decimal tax
+    +decimal totalAmount
+    +string notes
+    +calculateTotal()
+    +updateStatus()
+}
+class OrderItem {
+    +int id
+    +Order order
+    +Product product
+    +int quantity
+    +decimal unitPrice
+    +decimal subtotal
+    +Discount discount
+    +DateTime createdAt
+    +calculateSubtotal()
+}
+class OrderStatus {
+    <<enumeration>>
+    PENDING
+    PREPARING
+    READY
+    COMPLETED
+    CANCELLED
+}
+class Cart {
+    +int id
+    +User user
+    +Order order
+    +DateTime createdAt
+    +DateTime updatedAt
+    +addItem()
+    +removeItem()
+    +checkout()
+}
+
+%% Payment Processing
+class Payment {
+    <<abstract>>
+    +int id
+    +Order order
+    +PaymentStatus status
+    +decimal amount
+    +string transactionId
+    +DateTime createdAt
+    +DateTime processedAt
+    +string notes
+    +processPayment()
+}
+class PaymentStatus {
+    <<enumeration>>
+    PENDING
+    PROCESSING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
+class Cash {
+    +decimal cashReceived
+    +decimal changeGiven
+    +processPayment()
+}
+class UIASS_CARD {
+    +string cardNumber
+    +string cardHolderName
+    +ClientAccount account
+    +processPayment()
+}
+class VISA {
+    +string cardNumber
+    +string cardHolderName
+    +string expirationDate
+    +string cvv
+    +processPayment()
+}
+class ClientEnCompte {
+    +processPayment()
+}
+
+%% Notification
+class Notification {
+    +int id
+    +User recipient
+    +string message
+    +string type
+    +boolean isRead
+    +DateTime createdAt
+    +DateTime readAt
+    +send()
+    +markAsRead()
+}
+
+%% Relationships
+User "1" -- "*" Order
+User "1" -- "1" ClientAccount
+User "1" -- "1" Cart
+User "*" -- "1" Order
+Cart "1" -- "1" Order
+User "1" -- "*" Notification
+Order "1" -- "*" OrderItem
+Order "1" -- "1" Payment
+OrderItem "*" -- "1" Service
+OrderItem "*" -- "1" Product
+Product "*" -- "1" Category
+Service "*" -- "1" Category
+Menu "1" -- "1" PointOfSale
+Menu "1" -- "*" Product
+Menu "1" -- "*" Service
+PointOfSale "1" -- "*" Order
+Payment <|-- Cash
+Payment <|-- UIASS_CARD
+Payment <|-- VISA
+Payment <|-- ClientEnCompte
+UIASS_CARD "1" -- "1" ClientAccount
+ClientAccount "1" -- "*" ClientAccountOperation
+
+%% Styles for Classes
+style User fill:#3489eb,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+style Product fill:#34eb9f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+style Service fill:#34eb9f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+style Order fill:#abc42d,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+style Payment fill:#b8323f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+
+
+```
+
+
+
+```mermaid
+
+
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra{
+      +bool is_wild
+      +run()
+    }
+
+```
+
 # Vision Document
+
 
 # Problems
 
@@ -107,10 +389,13 @@ graph TB
 The following diagram represents the core entities of the system, including users, orders, payments, and inventory management. It ensures clear relationships and responsibilities between various system components.
 
 ```mermaid
-
+---
+config:
+    layout : elk
+---
 
 classDiagram
-%%{init :{'theme':'dark'}}%%
+%%{init :{'layout': 'elk'}}%%
     class User {
         +int id
         +string username
