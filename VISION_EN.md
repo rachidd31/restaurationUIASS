@@ -300,6 +300,11 @@ classDiagram
         +string cvv
         +processPayment()
     }
+
+
+ class ClientEnCompte {
+        +processPayment()
+    }
     User "1" -- "*" Order
     User "1" -- "1" ClientAccount
     User "1" -- "1" Cart
@@ -316,15 +321,17 @@ classDiagram
     Payment <|-- Cash
     Payment <|-- UIASS_CARD
     Payment <|-- VISA
+    Payment <|-- ClientEnCompte
     UIASS_CARD "1" -- "1" ClientAccount
     ClientAccount "1" -- "*" ClientAccountOperation
-    ClientAccountOperation "*" -- "1" User
+    %%ClientAccountOperation "*" -- "1" User
     ClientAccountOperation "0..1" -- "1" Payment
 
 
      style User fill:#3489eb,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
      style Product fill:#34eb9f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
      style Order fill:#abc42d,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+     style Payment fill:#b8323f,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
    
 ```
 
