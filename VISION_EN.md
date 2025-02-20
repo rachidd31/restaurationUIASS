@@ -325,7 +325,7 @@ classDiagram
     UIASS_CARD "1" -- "1" ClientAccount
     ClientAccount "1" -- "*" ClientAccountOperation
     %%ClientAccountOperation "*" -- "1" User
-    ClientAccountOperation "0..1" -- "1" Payment
+    %%ClientAccountOperation "0..1" -- "1" Payment
 
 
      style User fill:#3489eb,stroke:#66f,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
