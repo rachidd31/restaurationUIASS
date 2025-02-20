@@ -4,6 +4,38 @@
 
 # Vision Document
 
+# Problems
+
+```mermaid
+flowchart TD
+    A[System Weaknesses] --> B[Not all products scannable]
+    A --> C[No mixed payment method]
+    A --> D[Two cashiers use same account]
+    A --> E[Refunds policy issues]
+    A --> F[Adding workers to client en compte]
+    
+    B --> B1[Products not tagged or barcodes missing]
+    C --> C1[Only cash or card accepted, no split payment]
+    D --> D1[Security and accountability concerns]
+    E --> E1[No clear guidelines or process]
+    F --> F1[No user permission or role differentiation]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#ffcccb
+    style C fill:#ffcccb
+    style D fill:#ffcccb
+    style E fill:#ffcccb
+    style F fill:#ffcccb
+    style B1 fill:#ffeb99
+    style C1 fill:#ffeb99
+    style D1 fill:#ffeb99
+    style E1 fill:#ffeb99
+    style F1 fill:#ffeb99
+
+
+```
+
+
 ## Overview
 
 This document presents a comprehensive vision for a digital ordering and payment system designed to facilitate transactions in various points of sale. The system integrates multiple front-end applications with a robust backend architecture to ensure seamless operations.
