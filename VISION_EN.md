@@ -7,30 +7,37 @@
 # Problems
 
 ```mermaid
+---
+config:
+  theme: base
+  look: neo
+---
 flowchart TD
     A[System Weaknesses] --> B[Not all products scannable]
     A --> C[No mixed payment method]
     A --> D[Two cashiers use same account]
     A --> E[Refunds policy issues]
     A --> F[Adding workers to client en compte]
-    
     B --> B1[Products not tagged or barcodes missing]
     C --> C1[Only cash or card accepted, no split payment]
     D --> D1[Security and accountability concerns]
     E --> E1[No clear guidelines or process]
     F --> F1[No user permission or role differentiation]
     
-    style A fill:#f9f,stroke:#333,stroke-width:4px
-    style B fill:#ffcccb
-    style C fill:#ffcccb
-    style D fill:#ffcccb
-    style E fill:#ffcccb
-    style F fill:#ffcccb
-    style B1 fill:#ffeb99
-    style C1 fill:#ffeb99
-    style D1 fill:#ffeb99
-    style E1 fill:#ffeb99
-    style F1 fill:#ffeb99
+    style A fill:#f9f,stroke:#333,stroke-width:6px, color:#121111, font-size:28px
+    style B fill:#ffcccb, color:#121111, font-size:20px
+    style C fill:#ffcccb, color:#121111, font-size:20px
+    style D fill:#ffcccb, color:#121111, font-size:20px
+    style E fill:#ffcccb, color:#121111, font-size:20px
+    style F fill:#ffcccb, color:#121111, font-size:20px
+    style B1 fill:#ffeb99, color:#121111, font-size:20px
+    style C1 fill:#ffeb99, color:#121111, font-size:20px
+    style D1 fill:#ffeb99, color:#121111, font-size:20px
+    style E1 fill:#ffeb99, color:#121111, font-size:20px
+    style F1 fill:#ffeb99, color:#121111, font-size:20px
+    
+    linkStyle default stroke:#FFFFFF, stroke-width:2px
+
 
 
 ```
