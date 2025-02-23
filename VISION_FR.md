@@ -1,5 +1,17 @@
 # Technologies
 
+
+<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" style="background-color: #21ff">
+  <rect width="10" height="10">
+    <animate
+      attributeName="rx"
+      values="0;5;0"
+      dur="10s"
+      repeatCount="indefinite" />
+  </rect>
+</svg>
+
+
 *Cette section liste les technologies utilisées dans le système.*
 
 # System Design
