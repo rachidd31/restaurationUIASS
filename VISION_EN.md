@@ -103,6 +103,13 @@ graph TB
 
 ## Conception
 
+### Entity Relationship Diagram
+```mermaid
+
+```
+
+
+
 ### Class Diagram
 
 The following diagram represents the core entities of the system, including users, orders, payments, and inventory management. It ensures clear relationships and responsibilities between various system components.
