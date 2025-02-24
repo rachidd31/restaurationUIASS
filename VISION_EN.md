@@ -106,6 +106,200 @@ graph TB
 ### Entity Relationship Diagram
 ```mermaid
 
+
+erDiagram
+    USER ||--o{ ORDER : places
+    USER ||--|| CLIENT_ACCOUNT : has
+    USER ||--|| CART : has
+    USER ||--o{ NOTIFICATION : receives
+    CLIENT_ACCOUNT ||--o{ CLIENT_ACCOUNT_OPERATION : has
+    %% CLIENT_ACCOUNT_OPERATION }o--|| PAYMENT : references
+    ORDER ||--o{ ORDER_ITEM : contains
+    ORDER ||--|| PAYMENT : has
+    ORDER }o--|| POINT_OF_SALE : placedAt
+    ORDER_ITEM }|--|| OFFER : includes
+    ORDER_ITEM }|--|| OFFER : includes
+    OFFER }o--|{ CATEGORY : belongsTo
+    OFFER }o--|{ CATEGORY : belongsTo
+    MENU }o--o{ OFFER : includes
+    MENU ||--|| POINT_OF_SALE : belongsTo
+    POINT_OF_SALE ||--|| OPENING_HOURS : hasHours
+    PAYMENT }|--|| PAYMENT_STATUS : hasStatus
+    CLIENT_ACCOUNT_OPERATION }|--|| OPERATION_TYPE : hasType
+    CART ||--|| ORDER : creates
+    %% UIASS_CARD }o--|| CLIENT_ACCOUNT : linkedTo
+
+    USER {
+        int id PK
+        string username
+        string password
+        string email
+        int role_id FK
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+    }
+    
+    ROLE {
+        int id PK
+        string name
+    }
+    
+    CLIENT_ACCOUNT {
+        int id PK
+        int user_id FK,UK
+        string cardNumber
+        decimal balance
+        boolean isActive
+        datetime createdAt
+    }
+    
+    CLIENT_ACCOUNT_OPERATION {
+        int id PK
+        int account_id FK
+        int operator_id FK
+        int type_id FK
+        decimal amount
+        decimal previousBalance
+        decimal newBalance
+        string description
+        int payment_id FK
+        datetime createdAt
+        string reference
+    }
+    
+    OPERATION_TYPE {
+        int id PK
+        string name
+    }
+    
+    PAYMENT {
+        int id PK
+        int order_id FK
+        int status_id FK
+        decimal amount
+        string transactionId
+        datetime createdAt
+        datetime processedAt
+        string notes
+        decimal cashReceived
+        decimal changeGiven
+        string cardNumber
+        string cardHolderName
+        int account_id FK
+        string expirationDate
+        string cvv
+        string accountReference
+        string type
+
+    }
+
+
+    PAYMENT_STATUS {
+        int id PK
+        string name
+    }
+    
+    ORDER {
+        int id PK
+        int customer_id FK
+        int cashier_id FK
+        int pointOfSale_id FK
+        int status_id FK
+        int payment_id FK,UK
+        datetime createdAt
+        datetime updatedAt
+        decimal subtotal
+        decimal tax
+        decimal totalAmount
+        string notes
+    }
+    
+    ORDER_STATUS {
+        int id PK
+        string name
+    }
+    
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK 
+        int service_id FK
+        int quantity
+        decimal unitPrice
+        decimal subtotal
+        datetime createdAt
+    }
+    
+OFFER {
+        int id PK
+        string name
+        string description
+        decimal price
+        int category_id FK
+        boolean isActive
+        string imageUrl
+        datetime createdAt
+        datetime updatedAt
+        string type
+        string serviceId
+        int duration
+    }
+
+    CATEGORY {
+        int id PK
+        string name
+        string description
+        boolean isActive
+        datetime createdAt
+        datetime updatedAt
+    }
+    
+    POINT_OF_SALE {
+        int id PK
+        string name
+        string location
+        boolean isActive
+        int currentMenu_id FK
+        int hours_id FK
+    }
+    
+    MENU {
+        int id PK
+        int pointOfSale_id FK,UK
+        boolean isActive
+        datetime startDate
+        datetime endDate
+    }
+    
+    OPENING_HOURS {
+        int id PK
+        string schedule
+    }
+    
+    CART {
+        int id PK
+        int user_id FK,UK
+        int order_id FK,UK
+        datetime createdAt
+        datetime updatedAt
+    }
+    
+    NOTIFICATION {
+        int id PK
+        int recipient_id FK
+        string message
+        string type
+        boolean isRead
+        datetime createdAt
+        datetime readAt
+    }
+
+    %% PAYMENT <|-- CASH
+    %% PAYMENT <|-- UIASS_CARD
+    %% PAYMENT <|-- VISA
+    %% PAYMENT <|-- CLIENT_ENCOMPTE
+
 ```
 
 
