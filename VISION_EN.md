@@ -6,7 +6,7 @@
 
 [Figma Design](https://www.figma.com/design/aV06U5UlwsO6v4UIStAOF7/Untitled?m=auto&t=N4w2qT0imE5Dk7sG-1)
 
-[nexopos][https://my.nexopos.com/en]
+[Nexopos](https://my.nexopos.com/en)
 
 # Problems
 
