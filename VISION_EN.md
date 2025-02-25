@@ -4,7 +4,7 @@
 
 # UI/UX
 
-https://www.figma.com/board/jX3EwVO5LGeumzFLbWBr9w/UFood?t=VAUkWgKyLeZxDCPX-1
+[Figma Design](https://www.figma.com/design/aV06U5UlwsO6v4UIStAOF7/Untitled?m=auto&t=N4w2qT0imE5Dk7sG-1)
 
 # Problems
 
