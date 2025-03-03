@@ -6,7 +6,9 @@
 
 [Figma Design](https://www.figma.com/design/aV06U5UlwsO6v4UIStAOF7/Untitled?m=auto&t=N4w2qT0imE5Dk7sG-1)
 
-[Nexopos](https://my.nexopos.com/en)
+[Example 1](https://my.nexopos.com/en)
+[Example 2](https://stocky.getstocky.com/login)
+[Example 3]([https://my.nexopos.com/en](https://infypos.infyom.com/#/login))
 
 # Problems
 
