@@ -8,7 +8,7 @@
 
 [Example 1](https://my.nexopos.com/en)
 [Example 2](https://stocky.getstocky.com/login)
-[Example 3]([https://my.nexopos.com/en](https://infypos.infyom.com/#/login))
+[Example 3](https://infypos.infyom.com/#/login))
 
 # Problems
 
